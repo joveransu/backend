@@ -5,7 +5,7 @@ var http = require('http')
 // res = Vai mandar resposta para usuario, quem está acessando a aplicação
 http.createServer(function(req, res){
     // end = Server para enviar mensagem
-    res.end('Olá')
+    res.end('Bom dia')
 }).listen(8081)
-
+// localhost:8081 no Google
 console.log('O Servidor rodando...')
