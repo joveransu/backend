@@ -1,0 +1,7 @@
+var http = require('http')
+
+// createServer() = criará um server
+// listen(8081) = a porta que estará ele
+http.createServer().listen(8081)
+
+console.log('O Servidor rodando...')
