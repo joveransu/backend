@@ -1,1 +1,9 @@
 <h1>Lista de posts!</h1>
+
+<!-- Estrutura de Looping no objeto posts que foi mandando como parametro no app.js (each = cada)-->
+{{#each posts}}
+    <!-- Nome das colunas da tabela -->
+    <h1>{{titulo}}</h1>
+    <p>{{conteudo}} <sub>{{createdAt}}</sub></p>
+    <hr>
+{{/each}}

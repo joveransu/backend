@@ -5,7 +5,17 @@ const bodyParser = require('body-parser')
 const Post = require('./modulos/post')
 
 //Template Engine
-app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) //Estamos dizendo que nosso layout é o main views > layouts, precisa ter esses nomes de pastas
+app.engine('handlebars', handlebars.engine(
+    {
+        defaultLayout: 'main',
+        runtimeOptions: {
+            allowProtoPropertiesByDefault: true,allowProtoMethodsByDefault: true,
+            /* runtimeOptions para permitir exibir na tela os dados da database. */
+        }
+    }
+))
+//Estamos dizendo que nosso layout é o main views > layouts, precisa ter esses nomes de pastas
+
 app.set('view engine', 'handlebars')
     
 //Body Parser
@@ -14,7 +24,10 @@ app.use(bodyParser.json())
 
 //Rotas
 app.get('/', function(req, res){
-    res.render('home')
+    // {order: [['id', 'desc']]} = Para vim em ordem decrescente.
+    Post.findAll({order: [['id', 'desc']]}).then(function(posts){
+        res.render('home', {posts: posts})
+    })
 })
 
 
