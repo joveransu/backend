@@ -3,6 +3,7 @@ const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const admin = require('./routes/admin')
+const path = require('path')
 
 const app = express()
 //Config
@@ -13,6 +14,9 @@ const app = express()
         app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}))
         app.set('view engine', 'handlebars')
     //Mongoose
+
+    //Public
+        app.use(express.static(path.join(__dirname,'public')))//lendo todos arquivos css, img e js
 
 //Rotas
     //http://localhost:8081/admin/
