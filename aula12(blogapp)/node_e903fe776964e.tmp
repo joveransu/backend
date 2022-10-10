@@ -45,9 +45,9 @@ const app = express()
     //Mongoose
         mongoose.Promise = global.Promise
         mongoose.connect('mongodb://localhost/blogapp').then(() => {
-            console.log('Conectado ao mongo')
+            console.log('[MONGO] Conectado ao mongo')
         }).catch((err) => {
-            console.log('Falha na conexão com o mongoDB. ' + err)
+            console.log('[MONGO] Falha na conexão com o mongoDB. ' + err)
         })
     //Public
         app.use(express.static(path.join(__dirname,'public')))//lendo todos arquivos css, img e js
@@ -64,5 +64,5 @@ const app = express()
 //Outros
 const PORT = 8081
 app.listen(PORT, () => {
-    console.log('Site ligado!')
+    console.log('[SITE] Servidor foi ligado!')
 })
