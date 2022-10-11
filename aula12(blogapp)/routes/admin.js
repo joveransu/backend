@@ -13,8 +13,15 @@ router.get('/', (req, res) => {
 //Postagens
 
 router.get('/postagens', (req, res) => {
-    res.render('admin/postagens')
+    //categoria aqui é o nome do campo que ta registrado na postagens
+    Postagem.find().lean().populate('categoria').sort({data:'desc'}).then((postagens) => {
+        res.render('admin/postagens', {postagens: postagens})
+    }).catch((err) => {
+        req.flash('error_msg', 'Houve um erro ao listar as postagens.\n' + err)
+        res.redirect('/admin')
+    })   
 })
+
 
 router.get('/postagens/add', (req, res) => {
     Categoria.find().then((categorias) => {
@@ -67,6 +74,10 @@ router.post('/postagens/nova', (req, res) => {
             res.redirect('/admin/postagens')
         })
     }
+})
+
+router.get('/postagens/edit/:id', (req, res) => {
+    res.render('admin/editpostagens')
 })
 
 //Categorias
