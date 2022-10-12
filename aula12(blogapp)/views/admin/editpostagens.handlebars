@@ -3,26 +3,34 @@
 {{else}}
 
 {{/each}}
-<h3>Editar Postagem - <strong>{{categoria.nome}}</strong></h3>
+<h3>Editar Postagem - <strong>{{postagem.titulo}}</strong></h3>
 <div class="card">
     <div class="card-body">
-        <form action="/admin/categorias/edit" method="post">
-        <input type="hidden" name="id" value="{{categoria._id}}">
-            <label for="nome">Nome: </label>
-            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome da categoria" value="{{categoria.nome}}">
+        <form action="/admin/postagens/edit" method="post">
+            <input type="hidden" name="id" value="{{postagem._id}}">
+
+            <label for="titulo">Título: </label>
+            <input type="text" name="titulo" id="titulo" class="form-control" required value="{{postagem.titulo}}">
 
             <label for="slug">Slug: </label>
-            <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug da categoria" value="{{categoria.slug}}">
+            <input type="text" name="slug" id="slug" class="form-control" required value="{{postagem.slug}}">
 
-            <label for="slug">Descrição: </label>
-            <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug da categoria" value="{{categoria.descricao}}">
+            <label for="descricao">Descrição: </label>
+            <input type="text" name="descricao" id="descricao" class="form-control" required value="{{postagem.descricao}}">
+        
+            <label for="conteudo">Conteudo: </label>
+            <textarea class="form-control" name="conteudo" id="conteudo" cols="30" rows="10" required>{{postagem.conteudo}}</textarea>
+        
+            <label for="categoria">Categoria: </label>
+            <select class="form-select" name="categoria" id="categoria">
+                {{#each categorias}}
+                    <option value="{{_id}}">{{nome}}</option>
+                {{else}}
+                    <option value="0">Nenhuma categoria registrada.</option>
+                {{/each}}
+            </select>
 
-            <label for="slug">Conteudo: </label>
-            <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug da categoria" value="{{categoria.conteudo}}">
-
-            <br>
-
-            <button type="submit" class="btn btn-success">Editar categoria</button>
+            <button class="btn btn-success mt-2">Editar postagem</button>
         </form>
     </div>
 </div>

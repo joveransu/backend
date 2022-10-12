@@ -77,7 +77,68 @@ router.post('/postagens/nova', (req, res) => {
 })
 
 router.get('/postagens/edit/:id', (req, res) => {
-    res.render('admin/editpostagens')
+    //Fazendo duas pesquisas no mongo para enviar dados para postagens
+
+    Postagem.findOne({_id: req.params.id}).then((postagem) => {
+        Categoria.find().then((categorias) => {
+            res.render('admin/editpostagens', {categorias: categorias, postagem: postagem})
+        }).catch((err) => {
+            req.flash('error_msg', 'Houve um erro ao listar as categorias')
+            res.redirect('/admin/postagens')
+        })
+    }).catch((err) => {
+        req.flash('error_msg', 'Houve um erro ao carregar o formulario de editção.')
+        res.redirect('/admin/postagens')
+    })
+
+})
+
+router.post('/postagens/edit', (req, res) => {
+    //Validando dados
+    var erros = []
+
+    if(!req.body.titulo && req.body.titulo == undefined || req.body.titulo == null || req.body.titulo.length <= 2){
+        erros.push({texto: "Titulo inválido"}) 
+    }
+
+    if(!req.body.slug && req.body.slug == undefined || req.body.slug == null || req.body.slug.length <= 2){
+        erros.push({texto: "Slug inválido"}) 
+    }
+
+    if(!req.body.descricao && req.body.descricao == undefined || req.body.descricao == null || req.body.descricao.length <= 2){
+        erros.push({texto: "Descrição inválida"}) 
+    }
+
+    if(!req.body.conteudo && req.body.conteudo == undefined || req.body.conteudo == null || req.body.conteudo.length <= 2){
+        erros.push({texto: "Conteúdo inválido"}) 
+    }
+
+    if(req.body.categoria == 0){
+        erros.push({texto: 'Categoria inválida, registre uma categoria.'})
+    }
+
+    if(erros.length > 0){
+        res.render('admin/postagens', {erros: erros})
+    }else{
+        Postagem.findOne({_id: req.body.id}).then((postagem)=>{
+            postagem.titulo = req.body.titulo
+            postagem.slug = req.body.slug
+            postagem.conteudo = req.body.conteudo
+            postagem.descricao = req.body.descricao
+            postagem.categoria = req.body.categoria
+
+            postagem.save().then(() => {
+                req.flash('success_msg', 'Postagem editada com sucesso.')
+                res.redirect('/admin/postagens')
+            }).catch((err) => {
+                req.flash('error_msg', 'Houve um erro ao salvar a edição.')
+                res.redirect('/admin/postagens')
+            })
+        }).catch((err)=>{
+            req.flash('error_msg', 'Postagem não existe/encontrada, tente novamente')
+            res.redirect('/admin/postagens')
+        })
+    }
 })
 
 //Categorias

@@ -10,11 +10,13 @@
             <p>Descrição: {{descricao}}</p>
             <p>Conteúdo: {{conteudo}}</p>
             <p>Categoria: {{categoria.nome}}</p>
-            <a href="/admin/categorias/edit/{{_id}}"><button class="btn btn-success">Editar Postagem</button></a>
-            <form action="/admin/categorias/deletar" method="post">
-                <input type="hidden" name="id" value="{{_id}}">
-                <button type="submit" class="btn btn-danger mt-2">Deletar Postagem</button>
-            </form>
+            <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success">Editar Postagem</button></a>
+            <!--
+                <form action="/admin/categorias/deletar" method="post">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger mt-2">Deletar Postagem</button>
+                </form>
+            -->
         </div>
     </div>
 {{else}}
