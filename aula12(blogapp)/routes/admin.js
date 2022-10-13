@@ -141,6 +141,8 @@ router.post('/postagens/edit', (req, res) => {
     }
 })
 
+
+
 //Categorias
 
 router.get('/categorias', (req, res) => {
