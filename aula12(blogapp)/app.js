@@ -3,6 +3,7 @@ const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const admin = require('./routes/admin')
+const usuarios = require('./routes/usuario')
 const path = require('path')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -56,11 +57,7 @@ const app = express()
     //Public
         app.use(express.static(path.join(__dirname,'public')))//lendo todos arquivos css, img e js
 
-
 //Rotas
-    //http://localhost:8081/admin/
-    app.use('/admin', admin)
-
     app.get('/', (req, res) => {
         Postagem.find().lean().populate('categoria').sort({data: 'desc'}).then((postagens) => {
             res.render('index', {postagens: postagens})
@@ -115,6 +112,11 @@ const app = express()
             req.redirect('/')
         })
     })
+
+    //http://localhost:8081/admin/
+    app.use('/admin', admin)
+    //http://localhost:8081/usuario/
+    app.use('/usuarios', usuarios)
 
 //Outros
 const PORT = 8081
