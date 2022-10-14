@@ -41,6 +41,8 @@ const app = express()
             //VAR GLOBAIS, ele cria uma variavel que podem ser acessadas em qualquer parte da aplicação
             res.locals.success_msg = req.flash('success_msg')
             res.locals.error_msg = req.flash('error_msg')
+            //Var global para o auth
+            res.locals.error = req.flash('error')
             next()
         })
     

@@ -10,6 +10,12 @@
 <body>
     <!-- Carregar uma nav bar da pasta partials-->
     {{>_navbar}}
+    <!-- Erro vindo do sistema de auth-->
+    {{#if error}}
+        <div class="alert alert-danger">{{error}}</div>
+    {{else}}
+
+    {{/if}}
     <!-- Carregar mensagem de erro ou sucesso-->
     {{>_msg}}
     <!-- class do bootstrap para centralizar-->
