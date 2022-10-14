@@ -101,7 +101,7 @@ const app = express()
         Categoria.findOne({slug: req.params.slug}).then((categoria) => {
             if(categoria) {
                 Postagem.find({categoria: categoria._id}).then((postagens) => {
-                    res.render('categorias/postagens', {postagens: postagens})
+                    res.render('categorias/postagens', {postagens: postagens, categoria: categoria.nome})
                 }).catch((err) => {
                     req.flash('error_msg', 'Nenhuma postagem foi encontrada')
                     res.redirect('/')
