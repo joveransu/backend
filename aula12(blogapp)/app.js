@@ -11,6 +11,10 @@ require('./modulos/Postagem')
 const Postagem = mongoose.model('postagens')
 require('./modulos/Categoria')
 const Categoria = mongoose.model('categorias')
+const passport = require('passport')
+
+//Passando o passaport para nosso export do auth
+require('./config/auth')(passport)
 
 const app = express()
 //Config
@@ -20,6 +24,11 @@ const app = express()
             resave: true,
             saveUninitialized: true
         }))
+
+        //Criar sessão do user
+        app.use(passport.initialize())
+        app.use(passport.session())
+
         app.use(flash())
     //Middlewares
         /*
