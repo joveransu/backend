@@ -43,6 +43,8 @@ const app = express()
             res.locals.error_msg = req.flash('error_msg')
             //Var global para o auth
             res.locals.error = req.flash('error')
+            //Var global para usuarios e dados
+            res.locals.user = req.user || null
             next()
         })
     
