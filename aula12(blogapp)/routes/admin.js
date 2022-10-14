@@ -141,7 +141,16 @@ router.post('/postagens/edit', (req, res) => {
     }
 })
 
-
+//Não é tão segura pois é rota get, se alguem tiver acesso aos ids das postagens, podem deletar usando URL
+router.get('/postagens/deletar/:id', (req, res) => {
+    Postagem.deleteOne({_id: req.params.id}).then(() => {
+        req.flash('success_msg', 'Postagem foi deletada com sucesso.')
+        res.redirect('/admin/postagens')
+    }).catch((err) => {
+        req.flash('error_msg', 'Postagem não encontrada/existe.')
+        res.redirect('/admin/postagens')
+    })
+})
 
 //Categorias
 
@@ -205,7 +214,7 @@ router.post('/categorias/edit', (req, res) => {
 })
 
 router.post('/categorias/deletar', (req, res) =>{
-    Categoria.remove({_id: req.body.id}).then(() =>{
+    Categoria.deleteOne({_id: req.body.id}).then(() =>{
         req.flash('success_msg', 'Categoria deletada com sucesso!')
         res.redirect('/admin/categorias')
     }).catch((err) =>{

@@ -1,0 +1,11 @@
+{{#each postagens}}
+    <div class="card">
+        <div class="card-body">
+            <h2>{{titulo}}</h2>
+            <p>{{descricao}}</p>
+            <p>Criado em: {{data}}</p>
+        </div>
+    </div>
+{{else}}
+    <p>Nenhuma postagem foi encontrada!</p>
+{{/each}}
